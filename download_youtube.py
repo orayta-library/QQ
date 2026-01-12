@@ -1,5 +1,5 @@
 import sys
-from pytube import YouTube
+import yt_dlp
 
 def download_video(url, output_path='.'):
     """
@@ -9,19 +9,22 @@ def download_video(url, output_path='.'):
         url: כתובת הסרטון ב-YouTube
         output_path: תיקיית היעד להורדה
     """
+    ydl_opts = {
+        'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best',
+        'outtmpl': f'{output_path}/%(title)s.%(ext)s',
+        'merge_output_format': 'mp4',
+    }
+    
     try:
         print(f"מוריד סרטון מ: {url}")
-        yt = YouTube(url)
         
-        # בחירת הסטרים באיכות הגבוהה ביותר
-        stream = yt.streams.get_highest_resolution()
-        
-        print(f"כותרת: {yt.title}")
-        print(f"אורך: {yt.length} שניות")
-        print(f"מוריד...")
-        
-        # הורדת הסרטון
-        stream.download(output_path=output_path)
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(url, download=False)
+            print(f"כותרת: {info.get('title', 'לא ידוע')}")
+            print(f"אורך: {info.get('duration', 0)} שניות")
+            print(f"מוריד...")
+            
+            ydl.download([url])
         
         print(f"הסרטון הורד בהצלחה!")
         return 0
