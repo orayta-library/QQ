@@ -11,10 +11,9 @@ def download_video(url, output_path='.'):
         output_path: תיקיית היעד להורדה
     """
     ydl_opts = {
-        'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best',
+        'format': 'bestvideo*+bestaudio/best',
         'outtmpl': f'{output_path}/%(title)s.%(ext)s',
         'merge_output_format': 'mp4',
-        'extractor_args': {'youtube': {'player_client': ['android', 'web']}},
         'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
     }
     
