@@ -11,9 +11,15 @@ def download_video(url, output_path='.'):
         output_path: תיקיית היעד להורדה
     """
     ydl_opts = {
-        'format': 'bestvideo*+bestaudio/best',
+        'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best',
         'outtmpl': f'{output_path}/%(title)s.%(ext)s',
         'merge_output_format': 'mp4',
+        'postprocessors': [{
+            'key': 'FFmpegVideoConvertor',
+            'preferedformat': 'mp4',
+        }],
+        'prefer_ffmpeg': True,
+        'keepvideo': False,
         'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
     }
     
