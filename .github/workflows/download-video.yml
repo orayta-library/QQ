@@ -21,10 +21,10 @@ jobs:
         with:
           python-version: '3.11'
       
-      - name: Install ffmpeg
+      - name: Install ffmpeg and dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y ffmpeg
+          sudo apt-get install -y ffmpeg phantomjs
       
       - name: Install dependencies
         run: |
