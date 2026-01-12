@@ -1,4 +1,5 @@
 import sys
+import os
 import yt_dlp
 
 def download_video(url, output_path='.'):
@@ -16,6 +17,11 @@ def download_video(url, output_path='.'):
         'extractor_args': {'youtube': {'player_client': ['android', 'web']}},
         'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
     }
+    
+    # אם קיים קובץ cookies, השתמש בו
+    if os.path.exists('cookies.txt'):
+        ydl_opts['cookiefile'] = 'cookies.txt'
+        print("משתמש ב-cookies לאימות")
     
     try:
         print(f"מוריד סרטון מ: {url}")
