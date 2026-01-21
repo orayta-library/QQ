@@ -33,7 +33,7 @@ jobs:
       
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
+          pip install -U --pre "yt-dlp[default,deno]"
       
       - name: Download video
         run: |
@@ -45,3 +45,4 @@ jobs:
           name: youtube-video
           path: '*.mp4'
           retention-days: 7
+
